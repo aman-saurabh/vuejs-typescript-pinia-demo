@@ -25,6 +25,8 @@ const props = defineProps({
             type: Array as PropType<Job[]>
     } 
 })
+
+// const emit = defineEmits(['change', 'delete'])
 </script>
 <template>
     <div class="job-list">
