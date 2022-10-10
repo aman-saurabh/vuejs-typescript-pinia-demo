@@ -4,6 +4,7 @@
 import { ref, onMounted } from 'vue';
 
 const count = ref(0);
+const userId = ref<string | number>(465568);
 
 const update = (type: string) => {
     if (type == "inc")
@@ -18,6 +19,7 @@ onMounted(() => console.log(`Count is : ${count.value}`));
 </script>
 
 <template>
+    <h2>User id : {{userId}}</h2>
     <p class="abc">Count is {{count}}</p>
     <button class="inc" @click="update('inc')">Increase</button>
     <button class="dec" @click="update('dec')">Decrease</button>
@@ -32,9 +34,11 @@ button {
     font-weight: 700;
     cursor: pointer;
 }
+
 .inc {
     background: red;
 }
+
 .dec {
     background: green;
     margin-left: 10px;
