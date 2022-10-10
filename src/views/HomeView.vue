@@ -2,27 +2,25 @@
 //Note adding setup attribute is important as The setup attribute is a hint that makes Vue 
 //perform compile-time transforms that allow us to use Composition API with less boilerplate.
 import { ref, onMounted } from 'vue';
+import type Job from '../models/Job';
+import JobsList from '../components/JobsList.vue';
 
-const count = ref(0);
-const userId = ref<string | number>(465568);
-
-const update = (type: string) => {
-    if (type == "inc")
-        count.value++;
-    else
-        count.value--;
-}
+const jobs = ref<Job[]>([
+    { title: 'farm worker', location: 'lon lon ranch', salary: 30000, id: '1' },
+    { title: 'quarryman', location: 'death mountain', salary: 40000, id: '2' },
+    { title: 'flute player', location: 'the lost woods', salary: 35000, id: '3' },
+    { title: 'fisherman', location: 'lake hylia', salary: 21000, id: '4' },
+    { title: 'prison guard', location: 'gerudo valley', salary: 32000, id: '5' }
+]);
 
 
-onMounted(() => console.log(`Count is : ${count.value}`));
+
+// onMounted(() => console.log(`Mounted is called`));
 
 </script>
 
 <template>
-    <h2>User id : {{userId}}</h2>
-    <p class="abc">Count is {{count}}</p>
-    <button class="inc" @click="update('inc')">Increase</button>
-    <button class="dec" @click="update('dec')">Decrease</button>
+    <JobsList :jobs="jobs" />
 </template>
 
 <style lang="scss" scoped>
