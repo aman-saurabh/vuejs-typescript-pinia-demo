@@ -1,6 +1,8 @@
+<!-- Using Optional API. -->
+<!--
 <script lang="ts">
 import type { PropType } from 'vue';
-import type Job from '../models/Job';
+import type Job from '@/models/Job';
 
 export default {
     props: {
@@ -11,7 +13,19 @@ export default {
     }
 }
 </script>
+-->
+<!-- Using composition API. -->
+<script lang="ts" setup>
+import type Job from '@/models/Job';
+import type { PropType } from 'vue';
 
+const props = defineProps({
+    jobs:{
+        required: true,
+            type: Array as PropType<Job[]>
+    } 
+})
+</script>
 <template>
     <div class="job-list">
         <ul>
