@@ -20,21 +20,23 @@ import type Job from '@/models/Job';
 import type OrderTerm from '@/models/OrderTerm';
 import { computed } from '@vue/reactivity';
 import type { PropType } from 'vue';
+import { useJobsStore } from '@/stores/jobsStore';
+import { storeToRefs } from 'pinia';
+
+const jobsStore = useJobsStore();
+//For state and Getters(i.e. computed properties) we need to use 'storeToRefs' but not for actions)
+const { order } = storeToRefs(jobsStore);
 
 const props = defineProps({
     jobs: {
         required: true,
         type: Array as PropType<Job[]>
-    },
-    order: {
-        required: true,
-        type: String as PropType<OrderTerm>
     }
 })
 
 const orderedJobs = computed(() => {
     return [...props.jobs].sort((a: Job, b: Job) => {
-        return a[props.order] > b[props.order] ? 1 : -1;
+        return a[order.value] > b[order.value] ? 1 : -1;
     })
 })
 
@@ -68,13 +70,13 @@ const orderedJobs = computed(() => {
 </template>
 
 <style lang="scss" scoped>
-
 .order-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: -20px;
 }
+
 .order-type {
     background-color: #17bf66;
     padding: 10px 20px;

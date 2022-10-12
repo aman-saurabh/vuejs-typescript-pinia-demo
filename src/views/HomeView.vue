@@ -4,7 +4,7 @@
 import { ref, onMounted } from 'vue';
 import type Job from '../models/Job';
 import JobsList from '../components/JobsList.vue';
-import type OrderTerm from '../models/OrderTerm';
+import { useJobsStore } from '../stores/jobsStore';
 
 const jobs = ref<Job[]>([
     { title: 'farm worker', location: 'lon lon ranch', salary: 30000, id: '1' },
@@ -14,17 +14,11 @@ const jobs = ref<Job[]>([
     { title: 'prison guard', location: 'gerudo valley', salary: 32000, id: '5' }
 ]);
 
+const jobsStore = useJobsStore();
+//For state and Getters(i.e. computed properties) we need to use 'storeToRefs' but not for actions)
+const { handleClick, resetOrder } = jobsStore;
+
 // onMounted(() => console.log(`Mounted is called`));
-
-const order = ref<OrderTerm>('title');
-
-const handleClick = (term: OrderTerm) => {
-    order.value = term;
-}
-
-const resetOrder = (arg: OrderTerm) => {
-    order.value = arg;
-}
 
 </script>
 
@@ -41,7 +35,7 @@ const resetOrder = (arg: OrderTerm) => {
                 <button @click="handleClick('location')">Order by location</button>
             </div>
         </header>
-        <JobsList :jobs="jobs" :order="order" @reset-order="resetOrder" />
+        <JobsList :jobs="jobs" @reset-order="resetOrder" />
     </div>
 </template>
 
