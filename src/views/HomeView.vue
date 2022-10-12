@@ -22,13 +22,17 @@ const handleClick = (term: OrderTerm) => {
     order.value = term;
 }
 
+const resetOrder = (arg: OrderTerm) => {
+    order.value = arg;
+}
+
 </script>
 
 <template>
     <div class="app">
         <header>
             <div class="title">
-                <img src="../assets/heart.svg" alt="Site Logo"/>
+                <img src="../assets/heart.svg" alt="Site Logo" />
                 <h1>Ennaman Jobs</h1>
             </div>
             <div class="order">
@@ -37,7 +41,7 @@ const handleClick = (term: OrderTerm) => {
                 <button @click="handleClick('location')">Order by location</button>
             </div>
         </header>
-        <JobsList :jobs="jobs" :order="order" />
+        <JobsList :jobs="jobs" :order="order" @reset-order="resetOrder" />
     </div>
 </template>
 

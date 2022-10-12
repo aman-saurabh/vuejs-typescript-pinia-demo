@@ -42,7 +42,11 @@ const orderedJobs = computed(() => {
 </script>
 <template>
     <div class="job-list">
-        <p>Ordered by {{ order }}</p>
+        <div class="order-container">
+            <p class="order-type">Ordered by {{ order }}</p>
+            <button class="reset" @click="$emit('resetOrder', 'title')">Reset</button>
+            <!-- Here 'resetOrder' is the emit event name and 'title' is an argument -->
+        </div>
         <transition-group name="list" tag="ul">
             <li v-for="job in orderedJobs" :key="job.id">
                 <h2>{{job.title}} in {{job.location}}</h2>
@@ -64,6 +68,33 @@ const orderedJobs = computed(() => {
 </template>
 
 <style lang="scss" scoped>
+
+.order-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: -20px;
+}
+.order-type {
+    background-color: #17bf66;
+    padding: 10px 20px;
+    width: max-content;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.reset {
+    background-color: red;
+    color: whitesmoke;
+    border: 3px solid whitesmoke;
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: 900;
+    cursor: pointer;
+}
+
 .job-list {
     max-width: 960px;
     margin: 40px auto;
