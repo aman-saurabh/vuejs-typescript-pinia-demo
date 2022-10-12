@@ -1,7 +1,7 @@
 import type Job from "@/models/Job";
 import type OrderTerm from "@/models/OrderTerm";
 import { defineStore } from "pinia";
-import { computed, ref } from "vue";
+import { computed, ref, watch } from "vue";
 
 export const useJobsStore = defineStore('counter', () => {
     const jobs = ref<Job[]>([
@@ -27,6 +27,24 @@ export const useJobsStore = defineStore('counter', () => {
     const resetOrder = (arg: OrderTerm) => {
         order.value = arg;
     }
+
+    //To get localstorage value to set 'order' state on initialization.
+    const persistigOrder = localStorage.getItem("order");
+    if (persistigOrder) {
+        order.value = JSON.parse(persistigOrder);
+    }
+
+    //To persiste 'order' state in localstorage.
+    watch(order, val => {
+        localStorage.setItem('order', JSON.stringify(val));
+    }, { deep: true }
+        //Here setting {deep: true} doesn't have any advantage but if your state is 
+        //deeply nested then you should set it to true.
+    )
+
+    /*
+    Here jobs value is not chaning through any function so not persisting that 
+    */
 
     return { jobs, order, handleClick, resetOrder, orderedJobs }
 });
