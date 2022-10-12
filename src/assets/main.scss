@@ -5,6 +5,12 @@ body {
     background: #ffdf99;
 }
 
-.abc {
-    color: red;
+@font-face {
+    font-family: HyliaSerif;
+    src: url(HyliaSerifBeta-Regular.otf) format('opentype');
+}
+
+h1 {
+    font-family: HyliaSerif;
+    letter-spacing: 4px;
 }
