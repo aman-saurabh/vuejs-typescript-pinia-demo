@@ -17,21 +17,34 @@ export default {
 <!-- Using composition API. -->
 <script lang="ts" setup>
 import type Job from '@/models/Job';
+import type OrderTerm from '@/models/OrderTerm';
+import { computed } from '@vue/reactivity';
 import type { PropType } from 'vue';
 
 const props = defineProps({
-    jobs:{
+    jobs: {
         required: true,
-            type: Array as PropType<Job[]>
-    } 
+        type: Array as PropType<Job[]>
+    },
+    order: {
+        required: true,
+        type: String as PropType<OrderTerm>
+    }
+})
+
+const orderedJobs = computed(() => {
+    return [...props.jobs].sort((a: Job, b: Job) => {
+        return a[props.order] > b[props.order] ? 1 : -1;
+    })
 })
 
 // const emit = defineEmits(['change', 'delete'])
 </script>
 <template>
     <div class="job-list">
+        <p>Ordered by {{ order }}</p>
         <ul>
-            <li v-for="job in jobs" :key="job.id">
+            <li v-for="job in orderedJobs" :key="job.id">
                 <h2>{{job.title}} in {{job.location}}</h2>
                 <div class="salary">
                     <p>{{job.salary}}</p>
