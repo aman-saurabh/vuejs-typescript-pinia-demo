@@ -28,6 +28,10 @@ export const useJobsStore = defineStore('counter', () => {
         order.value = arg;
     }
 
+    /*
+    //Persisted etire store in localstorage,so commented out it
+    //Check "main.ts" file to see how to persit entire store in localstorage
+
     //To get localstorage value to set 'order' state on initialization.
     const persistigOrder = localStorage.getItem("order");
     if (persistigOrder) {
@@ -41,7 +45,7 @@ export const useJobsStore = defineStore('counter', () => {
         //Here setting {deep: true} doesn't have any advantage but if your state is 
         //deeply nested then you should set it to true.
     )
-
+    */
     /*
     Here jobs value is not chaning through any function so not persisting that 
     */
