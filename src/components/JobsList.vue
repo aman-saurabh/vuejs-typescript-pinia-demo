@@ -25,20 +25,8 @@ import { storeToRefs } from 'pinia';
 
 const jobsStore = useJobsStore();
 //For state and Getters(i.e. computed properties) we need to use 'storeToRefs' but not for actions)
-const { order } = storeToRefs(jobsStore);
-
-const props = defineProps({
-    jobs: {
-        required: true,
-        type: Array as PropType<Job[]>
-    }
-})
-
-const orderedJobs = computed(() => {
-    return [...props.jobs].sort((a: Job, b: Job) => {
-        return a[order.value] > b[order.value] ? 1 : -1;
-    })
-})
+const { order, orderedJobs } = storeToRefs(jobsStore);
+const { resetOrder } = jobsStore;
 
 // const emit = defineEmits(['change', 'delete'])
 </script>
@@ -46,7 +34,7 @@ const orderedJobs = computed(() => {
     <div class="job-list">
         <div class="order-container">
             <p class="order-type">Ordered by {{ order }}</p>
-            <button class="reset" @click="$emit('resetOrder', 'title')">Reset</button>
+            <button class="reset" @click="resetOrder('title')">Reset</button>
             <!-- Here 'resetOrder' is the emit event name and 'title' is an argument -->
         </div>
         <transition-group name="list" tag="ul">
